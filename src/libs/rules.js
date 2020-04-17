@@ -61,6 +61,7 @@ const genRules = (unit) => {
 
     // font
     { reg: /^lh(((\d+)|(\.\d+)|(\d+\.\d+)))$/, to: 'line-height:$1' + unit },
+    { reg: /^lhn$/, to: 'line-height:normal' },
     { reg: /^fwb$/, to: 'font-weight:bold' },
     { reg: /^fs(((\d+)|(\.\d+)|(\d+\.\d+)))$/, to: 'font-size:$1' + unit },
     { reg: /^c([0-9a-fA-F]{3,8})$/, to: 'color:#$1' },
