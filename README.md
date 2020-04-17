@@ -3,7 +3,7 @@
 
 ### 功能简介
 假设你有如下vue文件代码：
-```
+```vue
 // xxx.vue
 <template>
   <div class="m10 p10 fs12">你好世界</div>
@@ -12,7 +12,7 @@
 
 经过该 loader 转换后，在浏览器实际运行的代码是：
 
-```
+```html
 <div class="m10 p10 fs12">你好世界</div>
 <style>
 .m10 { margin: 10px; }
