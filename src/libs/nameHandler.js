@@ -14,6 +14,7 @@ const parse = (names, rules, unit) => {
 }
 
 const getCtcInfo = (name, rules, unit) => {
+  console.log(name, 'xxxxxxxxxxxxxxxxxxxxxxx')
   const key = getKey(name)
   const rule = rules.find(rule => rule.reg.test(key))
   if (!rule) return { name }
