@@ -17,6 +17,6 @@
     "vue-template-compiler": "^2.6.11"
   },
   "devDependencies": {
-    "mocha": "^7.0.1"
+    "mocha": "^7.1.1"
   }
 }

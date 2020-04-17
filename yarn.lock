@@ -538,7 +538,7 @@ mkdirp@0.5.3:
   dependencies:
     minimist "^1.2.5"
 
-mocha@^7.0.1:
+mocha@^7.1.1:
   version "7.1.1"
   resolved "http://bnpm.byted.org/mocha/download/mocha-7.1.1.tgz#89fbb30d09429845b1bb893a830bf5771049a441"
   integrity sha1-ifuzDQlCmEWxu4k6gwv1dxBJpEE=
