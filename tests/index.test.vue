@@ -1,3 +1,3 @@
 <template>
-  <div class="fs12">hello world!</div>
+  <div class="fs12 w100%">hello world!</div>
 </template>
