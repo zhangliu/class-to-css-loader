@@ -10,12 +10,12 @@ const genRules = (unit) => {
     { key: 'd', valReg: /ib/, css: 'display:inline-block' },
     { key: 'd', valReg: /n/, css: 'display:none' },
     { key: 'd', valReg: /f/, css: 'display:flex' },
+    { key: 'd', valReg: /^if$/, css: 'display:inline-flex' },
 
     // flex
     { key: 'fd', valReg: /c/, css: 'flex-direction:column' },
     { key: 'ai', valReg: /^c$/, css: 'align-items:center' },
     { key: 'jc', valReg: /^c$/, css: 'justify-content:center' },
-    { key: 'd', valReg: /^if$/, css: 'display:inline-flex' },
     { key: 'jc', valReg: /^sb$/, css: 'justify-content:space-between' },
     { key: 'jc', valReg: /^sa$/, css: 'justify-content:space-around' },
     { key: 'jc', valReg: /^fe$/, css: 'justify-content:flex-end' },
