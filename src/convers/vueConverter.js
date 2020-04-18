@@ -89,7 +89,7 @@ const handleNames = (names, opts = {}) => {
   rules = rules || outerRules.concat(defaultRules);
 
   const newNames = []
-  let ctcInfos = nameHandler.parse(names, rules, opts.unit || 'px')
+  let ctcInfos = nameHandler.parse(names, rules, opts);
   ctcInfos = nameHandler.merge(ctcInfos)
 
   for (const ctcInfo of ctcInfos) {

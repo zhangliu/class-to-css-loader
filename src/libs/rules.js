@@ -1,126 +1,134 @@
 const backgroundImg = require('../ruleFuncs/backgroundImg')
 
+const numberReg = /^-?((\d+)|(\.\d+)|(\d+\.\d+))$/;
+const colorReg = /^(([0-9a-fA-F]{3})|([0-9a-fA-F]{6}))$/;
+
 const genRules = (unit) => {
   return [
     // display
-    { reg: /^db$/, to: 'display:block' },
-    { reg: /^dib$/, to: 'display:inline-block' },
-    { reg: /^dn$/, to: 'display:none' },
-    { reg: /^df$/, to: 'display:flex' },
+    { key: 'd', valReg: /b/, css: 'display:block' },
+    { key: 'd', valReg: /ib/, css: 'display:inline-block' },
+    { key: 'd', valReg: /n/, css: 'display:none' },
+    { key: 'd', valReg: /f/, css: 'display:flex' },
 
     // flex
-    { reg: /^fdc$/, to: 'flex-direction:column' },
-    { reg: /^aic$/, to: 'align-items:center' },
-    { reg: /^jcc$/, to: 'justify-content:center' },
-    { reg: /^dif$/, to: 'display:inline-flex' },
-    { reg: /^jcsb$/, to: 'justify-content:space-between' },
-    { reg: /^jcsa$/, to: 'justify-content:space-around' },
-    { reg: /^jcfe$/, to: 'justify-content:flex-end' },
-    { reg: /^asfe$/, to: 'align-self:flex-end' },
+    { key: 'fd', valReg: /c/, css: 'flex-direction:column' },
+    { key: 'ai', valReg: /^c$/, css: 'align-items:center' },
+    { key: 'jc', valReg: /^c$/, css: 'justify-content:center' },
+    { key: 'd', valReg: /^if$/, css: 'display:inline-flex' },
+    { key: 'jc', valReg: /^sb$/, css: 'justify-content:space-between' },
+    { key: 'jc', valReg: /^sa$/, css: 'justify-content:space-around' },
+    { key: 'jc', valReg: /^fe$/, css: 'justify-content:flex-end' },
+    { key: 'as', valReg: /^fe$/, css: 'align-self:flex-end' },
 
     // margin
-    { reg: /^m(-?((\d+)|(\.\d+)|(\d+\.\d+)))$/, to: 'margin:$1' + unit },
-    { reg: /^mt(-?((\d+)|(\.\d+)|(\d+\.\d+)))$/, to: 'margin-top:$1' + unit },
-    { reg: /^mb(-?((\d+)|(\.\d+)|(\d+\.\d+)))$/, to: 'margin-bottom:$1' + unit },
-    { reg: /^ml(-?((\d+)|(\.\d+)|(\d+\.\d+)))$/, to: 'margin-left:$1' + unit },
-    { reg: /^mr(-?((\d+)|(\.\d+)|(\d+\.\d+)))$/, to: 'margin-right:$1' + unit },
+    { key: 'm', valReg: numberReg, css: 'margin:$1' + unit },
+    { key: 'mt', valReg: numberReg, css: 'margin-top:$1' + unit },
+    { key: 'mb', valReg: numberReg, css: 'margin-bottom:$1' + unit },
+    { key: 'ml', valReg: numberReg, css: 'margin-left:$1' + unit },
+    { key: 'mr', valReg: numberReg, css: 'margin-right:$1' + unit },
 
-    { reg: /^mra$/, to: 'margin-right:auto' },
-    { reg: /^mla$/, to: 'margin-left:auto' },
+    { key: 'mr', valReg: /^a$/, css: 'margin-right:auto' },
+    { key: 'ml', valReg: /^a$/, css: 'margin-left:auto' },
 
     // padding
-    { reg: /^p(-?((\d+)|(\.\d+)|(\d+\.\d+)))$/, to: 'padding:$1' + unit },
-    { reg: /^pt(-?((\d+)|(\.\d+)|(\d+\.\d+)))$/, to: 'padding-top:$1' + unit },
-    { reg: /^pb(-?((\d+)|(\.\d+)|(\d+\.\d+)))$/, to: 'padding-bottom:$1' + unit },
-    { reg: /^pl(-?((\d+)|(\.\d+)|(\d+\.\d+)))$/, to: 'padding-left:$1' + unit },
-    { reg: /^pr(-?((\d+)|(\.\d+)|(\d+\.\d+)))$/, to: 'padding-right:$1' + unit },
+    { key: 'p', valReg: numberReg, css: 'padding:$1' + unit },
+    { key: 'pt', valReg: numberReg, css: 'padding-top:$1' + unit },
+    { key: 'pb', valReg: numberReg, css: 'padding-bottom:$1' + unit },
+    { key: 'pl', valReg: numberReg, css: 'padding-left:$1' + unit },
+    { key: 'pr', valReg: numberReg, css: 'padding-right:$1' + unit },
 
-    { reg: /^pra$/, to: 'padding-right:auto' },
-    { reg: /^pla$/, to: 'padding-left:auto' },
+    { key: 'pr', valReg: /^a$/, css: 'padding-right:auto' },
+    { key: 'pl', valReg: /^a$/, css: 'padding-left:auto' },
 
     // float
-    { reg: /^fl$/, to: 'float:left' },
-    { reg: /^fr$/, to: 'float:right' },
-    { reg: /^ofh$/, to: 'overflow:hidden' },
-    { reg: /^ofa$/, to: 'overflow:auto' },
-    { reg: /^cb$/, to: 'clear:both' },
-    { reg: /^ofys$/, to: 'overflow-y: scroll' },
+    { key: 'f', valReg: /^l$/, css: 'float:left' },
+    { key: 'f', valReg: /^r$/, css: 'float:right' },
+    { key: 'of', valReg: /^h$/, css: 'overflow:hidden' },
+    { key: 'of', valReg: /^a$/, css: 'overflow:auto' },
+    { key: 'c', valReg: /^b$/, css: 'clear:both' },
+    { key: 'ofy', valReg: /^s$/, css: 'overflow-y: scroll' },
 
     // align
-    { reg: /^tal$/, to: 'text-align:left' },
-    { reg: /^tar$/, to: 'text-align:right' },
-    { reg: /^tac$/, to: 'text-align:center' },
-    { reg: /^tdlt$/, to: 'text-decoration:line-through' },
-    { reg: /^vam$/, to: 'vertical-align:middle' },
+    { key: 'ta', valReg: /^l$/, css: 'text-align:left' },
+    { key: 'ta', valReg: /^r$/, css: 'text-align:right' },
+    { key: 'ta', valReg: /^c$/, css: 'text-align:center' },
+    { key: 'td', valReg: /^lt$/, css: 'text-decoration:line-through' },
+    { key: 'va', valReg: /^m$/, css: 'vertical-align:middle' },
 
     // background
-    { reg: /^bgn$/, to: 'background:none' },
-    { reg: /^bgi-([_0-9a-zA-Z]+)(-([0-9a-zA-Z]+))?$/, to: backgroundImg },
-    { reg: /^bgc([0-9a-fA-F]{3,8})$/, to: 'background-color:#$1' },
-    { reg: /^bilg-(\d+)-(\w{3,8})-(\w{3,8})$/, to: 'background-image:linear-gradient($1deg, #$2, #$3)'},
+    { key: 'bg', valReg: /^n$/, css: 'background:none' },
+    { key: 'bgi', valReg: /^([_0-9a-zA-Z]+)(-([0-9a-zA-Z]+))?$/, css: backgroundImg },
+    { key: 'bgc', valReg: colorReg, css: 'background-color:#$1' },
+    { key: 'bgi', valReg: /^lg-(\d+)-(\w{3,8})-(\w{3,8})$/, css: 'background-image:linear-gradient($1deg, #$2, #$3)'},
+    { key: 'bgs', valReg: /^con$/, css: 'background-size: contain'},
+    { key: 'bgs', valReg: /^cov$/, css: 'background-size: cover'},
 
     // font
-    { reg: /^lh(((\d+)|(\.\d+)|(\d+\.\d+)))$/, to: 'line-height:$1' + unit },
-    { reg: /^lhn$/, to: 'line-height:normal' },
-    { reg: /^fwb$/, to: 'font-weight:bold' },
-    { reg: /^fs(((\d+)|(\.\d+)|(\d+\.\d+)))$/, to: 'font-size:$1' + unit },
-    { reg: /^c([0-9a-fA-F]{3,8})$/, to: 'color:#$1' },
-    { reg: /^tdn$/, to: 'text-decoration:none' },
-    { reg: /^tdu$/, to: 'text-decoration:underline' },
-    { reg: /^toe$/, to: 'text-overflow:ellipsis' },
-    { reg: /^wsn$/, to: 'white-space:nowrap' },
-    { reg: /^ls(-?((\d+)|(\.\d+)|(\d+\.\d+)))$/, to: 'letter-spacing: $1' + unit },
-    { reg: /^wwbw$/, to: 'word-wrap:break-word' },
-    { reg: /^wbba$/, to: 'word-break:break-all' },
+    { key: 'lh', valReg: numberReg, css: 'line-height:$1' + unit },
+    { key: 'lh', valReg: /^n$/, css: 'line-height:normal' },
+    { key: 'fw', valReg: /^b$/, css: 'font-weight:bold' },
+    { key: 'fs', valReg: numberReg, css: 'font-size:$1' + unit },
+    { key: 'c', valReg: colorReg, css: 'color:#$1' },
+    { key: 'td', valReg: /^n$/, css: 'text-decoration:none' },
+    { key: 'td', valReg: /^u$/, css: 'text-decoration:underline' },
+    { key: 'tof', valReg: /^e$/, css: 'text-overflow:ellipsis' },
+    { key: 'ws', valReg: /^n$/, css: 'white-space:nowrap' },
+    { key: 'ls', valReg: numberReg, css: 'letter-spacing: $1' + unit },
+    { key: 'ww', valReg: /^bw$/, css: 'word-wrap:break-word' },
+    { key: 'wb', valReg: /^ba$/, css: 'word-break:break-all' },
 
     // position
-    { reg: /^pa$/, to: 'position:absolute' },
-    { reg: /^pr$/, to: 'position:relative' },
-    { reg: /^pf$/, to: 'position:fixed' },
-    { reg: /^t(-?((\d+)|(\.\d+)|(\d+\.\d+)))$/, to: 'top:$1' + unit },
-    { reg: /^b(-?((\d+)|(\.\d+)|(\d+\.\d+)))$/, to: 'bottom:$1' + unit },
-    { reg: /^l(-?((\d+)|(\.\d+)|(\d+\.\d+)))$/, to: 'left:$1' + unit },
-    { reg: /^r(-?((\d+)|(\.\d+)|(\d+\.\d+)))$/, to: 'right:$1' + unit },
+    { key: 'p', valReg: /^a$/, css: 'position:absolute' },
+    { key: 'p', valReg: /^r$/, css: 'position:relative' },
+    { key: 'p', valReg: /^f$/, css: 'position:fixed' },
+    { key: 't', valReg: numberReg, css: 'top:$1' + unit },
+    { key: 'b', valReg: numberReg, css: 'bottom:$1' + unit },
+    { key: 'l', valReg: numberReg, css: 'left:$1' + unit },
+    { key: 'r', valReg: numberReg, css: 'right:$1' + unit },
 
     //width and height
-    { reg: /^w(((\d+)|(\.\d+)|(\d+\.\d+)))$/, to: 'width:$1' + unit },
-    { reg: /^miw(((\d+)|(\.\d+)|(\d+\.\d+)))$/, to: 'min-width:$1' + unit },
-    { reg: /^maw(((\d+)|(\.\d+)|(\d+\.\d+)))$/, to: 'max-width:$1' + unit },
+    { key: 'w', valReg: numberReg, css: 'width:$1' + unit },
+    { key: 'miw', valReg: numberReg, css: 'min-width:$1' + unit },
+    { key: 'maw', valReg: numberReg, css: 'max-width:$1' + unit },
 
-    { reg: /^h(((\d+)|(\.\d+)|(\d+\.\d+)))$/, to: 'height:$1' + unit },
-    { reg: /^mih(((\d+)|(\.\d+)|(\d+\.\d+)))$/, to: 'min-height:$1' + unit },
-    { reg: /^mah(((\d+)|(\.\d+)|(\d+\.\d+)))$/, to: 'max-height:$1' + unit },
+    { key: 'h', valReg: numberReg, css: 'height:$1' + unit },
+    { key: 'mih', valReg: numberReg, css: 'min-height:$1' + unit },
+    { key: 'mah', valReg: numberReg, css: 'max-height:$1' + unit },
 
     // border
-    { reg: /^bw(((\d+)|(\.\d+)|(\d+\.\d+)))$/, to: 'border-width:$1' + unit },
-    { reg: /^bbw(((\d+)|(\.\d+)|(\d+\.\d+)))$/, to: 'border-bottom-width:$1' + unit },
-    { reg: /^blw(((\d+)|(\.\d+)|(\d+\.\d+)))$/, to: 'border-left-width:$1' + unit },
-    { reg: /^brw(((\d+)|(\.\d+)|(\d+\.\d+)))$/, to: 'border-right-width:$1' + unit },
-    { reg: /^btw(((\d+)|(\.\d+)|(\d+\.\d+)))$/, to: 'border-top-width:$1' + unit },
-    { reg: /^bss$/, to: 'border-style:solid' },
-    { reg: /^bsd$/, to: 'border-style:dashed' },
-    { reg: /^bc(\w{3,8})$/, to: 'border-color:#$1' },
-    { reg: /^br(((\d+)|(\.\d+)|(\d+\.\d+)))$/, to: 'border-radius:$1' + unit },
-    { reg: /^btlr(((\d+)|(\.\d+)|(\d+\.\d+)))$/, to: 'border-top-left-radius:$1' + unit },
-    { reg: /^btrr(((\d+)|(\.\d+)|(\d+\.\d+)))$/, to: 'border-top-right-radius:$1' + unit },
-    { reg: /^bbrr(((\d+)|(\.\d+)|(\d+\.\d+)))$/, to: 'border-bottom-right-radius:$1' + unit },
-    { reg: /^bblr(((\d+)|(\.\d+)|(\d+\.\d+)))$/, to: 'border-bottom-left-radius:$1' + unit },
-    { reg: /^bsbb$/, to: 'box-sizing:border-box' },
-    { reg: /^on$/, to: 'outline:none' },
+    { key: 'bw', valReg: numberReg, css: 'border-width:$1' + unit },
+    { key: 'bbw', valReg: numberReg, css: 'border-bottom-width:$1' + unit },
+    { key: 'blw', valReg: numberReg, css: 'border-left-width:$1' + unit },
+    { key: 'brw', valReg: numberReg, css: 'border-right-width:$1' + unit },
+    { key: 'btw', valReg: numberReg, css: 'border-top-width:$1' + unit },
+    { key: 'bs', valReg: /^s$/, css: 'border-style:solid' },
+    { key: 'bs', valReg: /^d$/, css: 'border-style:dashed' },
+    { key: 'bc', valReg: colorReg, css: 'border-color:#$1' },
+    { key: 'br', valReg: numberReg, css: 'border-radius:$1' + unit },
+    { key: 'btlr', valReg: numberReg, css: 'border-top-left-radius:$1' + unit },
+    { key: 'btrr', valReg: numberReg, css: 'border-top-right-radius:$1' + unit },
+    { key: 'bbrr', valReg: numberReg, css: 'border-bottom-right-radius:$1' + unit },
+    { key: 'bblr', valReg: numberReg, css: 'border-bottom-left-radius:$1' + unit },
+    { key: 'bs', valReg: /^bb$/, css: 'box-sizing:border-box' },
+    { key: 'ol', valReg: /^n$/, css: 'outline:none' },
 
     // transform
-    { reg: /^tr(\d+)$/, to: 'transform:rotate($1deg)' },
-
-    // 背景
-    { reg: /^bgsct$/, to: 'background-size: contain'},
-    { reg: /^bgscv$/, to: 'background-size: cover'},
+    { key: 't', valReg: /^r(\d+)$/, css: 'transform:rotate($1deg)' },
 
     // 透明
-    { reg: /^o(\d+)$/, to: 'opacity:.$1' },
-    { reg: /^zi(-?\d+)$/, to: 'z-index:$1' },
+    { key: 'o', valReg: numberReg, css: 'opacity:$1' },
+    { key: 'zi', valReg: /^\d+$/, css: 'z-index:$1' },
   ]
 }
 
+const getKeyReg = (rule) => {
+  const { key, valReg } = rule;
+  const source = valReg.source.replace(/\^?(.*?)\$?/g, '$1');
+  return new RegExp(`^${key}${source}$`);
+}
+
 module.exports = {
-  genRules
+  genRules,
+  getKeyReg
 }
