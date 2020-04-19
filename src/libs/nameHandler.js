@@ -5,7 +5,8 @@ const MERGE_REGS = {
   bwReg: /^b[trbl]?w((\d+)|(\.\d+)|(\d+\.\d+))$/, // border-width
   mReg: /^m[trbl]?((\d+)|(\.\d+)|(\d+\.\d+))$/, // margin
   pReg: /^p[trbl]?((\d+)|(\.\d+)|(\d+\.\d+))$/, // padding
-}
+};
+const SEPARATOR = ':';
 
 // const specSymbols = {
 //   '.': '_dot_',
@@ -26,9 +27,8 @@ const parse = (names, rules, opts) => {
 
 const getCtcInfo = (name, rules, opts) => {
   const unit = opts.unit || 'px';
-  const separator = opts.separator;
-  const { key, value } = getKeyValue(name, separator);
-  const rule = getRule(key, value, separator, rules);
+  const { key, value } = getKeyValue(name);
+  const rule = getRule(key, value, rules);
   if (!rule) return { name }
 
   return {
@@ -36,7 +36,7 @@ const getCtcInfo = (name, rules, opts) => {
     key,
     value,
     unit,
-    name: replaceSpecSymbol(name, separator),
+    name: replaceSpecSymbol(name),
     rule,
     option: {
       hasImportant: hasImportant(name),
@@ -50,31 +50,21 @@ const getCtcInfo = (name, rules, opts) => {
   }
 }
 
-const getKeyValue = (name, separator) => {
+const getKeyValue = (name) => {
   let result = rmImportant(name);
   result = rmPercent(result);
   result = rmAfter(result);
   result = rmBefore(result);
   result = rmHover(result);
 
-  if (!separator) return { key: result };
-
-  const tempArr = result.split(separator);
+  const tempArr = result.split(SEPARATOR);
   return { key: tempArr[0], value: tempArr[1] };
 }
 
-const getRule = (key, value, separator, rules) => {
-  if (separator && !value) return;
+const getRule = (key, value, rules) => {
+  if (!value) return;
 
-  for (const rule of rules) {
-    if (value) {
-      if (rule.key === key && rule.valReg.test(value)) return rule;
-      continue;
-    }
-
-    const reg = getKeyReg(rule);
-    if (reg.test(key)) return rule;
-  }
+  return rules.find(r => (r.key === key) && r.valReg.test(value));
 }
 
 const hasImportant = name => /!/.test(name)
@@ -92,14 +82,14 @@ const rmBefore = name => name.replace(/#b/, '')
 const hasHover = name => /#h/.test(name)
 const rmHover = name => name.replace(/#h/, '')
 
-const replaceSpecSymbol = (name, separator) => {
+const replaceSpecSymbol = (name) => {
   return name.replace(/\./g, '_dot_')
     .replace(/%/g, '_percent_')
     .replace(/!/g, '_important_')
     .replace(/#a/g, '_after_')
     .replace(/#b/g, '_before_')
     .replace(/#h/g, '_hover_')
-    .replace(separator, '_s_');
+    .replace(SEPARATOR, '_s_');
 }
 
 // merge 是为了防止在某个div设置了： m0 mt10，但是之后的一个div也这是了：m0，后面的 m0 会覆盖前面的 mt10.

@@ -1,26 +1,33 @@
 ### class-to-css-loader
-这个 loader 可以根据你代码里的 class，自动生成相应的 css。
+该loader基于css的简化命名法：
+![](https://upload-images.jianshu.io/upload_images/4328038-5c8f39b0e5936258.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
-### 功能简介
+当你在 vue/react 文件中写有`<div class="ml:10 fs:12 p:a" />hello<div>`时，这个div将自动获得：
+```css
+margin-left: 10px;
+font-size: 12px;
+position: absolute;
+```
+的样式！
+
+### 工作原理
 假设你有如下vue文件代码：
-```vue
+```html
 // xxx.vue
-<template>
-  <div class="m10 p10 fs12">你好世界</div>
-</template>
+  <div class="ml:10 fs:12 p:a" />hello<div>
 ```
 
-经过该 loader 转换后，在浏览器实际运行的代码是：
+经过该 loader 转换后，将生成如下代码：
 
 ```html
-<div class="m10 p10 fs12">你好世界</div>
+<div class="ml_s_10 fs_s_12 p_s_a">你好世界</div>
 <style>
-.m10 { margin: 10px; }
-.p10 { padding: 10px; }
-.fs12 { font-size: 12px; }
+.ml_s_10 { margin-left: 10px; }
+.fs_s_12 { font-size: 12px; }
+.p_s_a { position: absolute; }
 </style>
 ```
-可以看到，该babel会自动解析你的class，然后生成相应的css。
+> 冒号会自动转换成`_s_`，因为css属性名不支持冒号。
 
 ### 使用方式
 1、在 webpack.config 里进行配置：
@@ -36,6 +43,7 @@ module.exports = {
           {
             loader: '@byted/class-to-css-loader',
             options: {
+              unit: 'px', // 使用的单位，默认 px，也可以设置成 rem
               tests: [
                 /src\/.*$/, // 表示只转换 src 目录下的文件
               ],
@@ -48,15 +56,7 @@ module.exports = {
 }
 ```
 
-### 语法说明
-#### class="key[separator]value"
-* **key:** 表示 css属性 首字母的简写，比如 key: `ml`，代表 css 的 `margin-left`属性。
-
-* **separator:** 可选项，表示 key 和 value 之间的分隔符，如果设置了某个字符，比如冒号：`:`，则 `ml:10` 才会被解析为：`margin-left: 10px`
-
-* **value:** 表示你需要设置的属性值，例如，你想设置字体大小为`12px`，者可以写为：`fs:12`，更多请参见下面的对照表。
-
-### 解析对照表（以冒号为分隔符为例）
+### 解析对照表
 
 | key | 代表css属性 | value | 例子 |
 | - | - | - | - |

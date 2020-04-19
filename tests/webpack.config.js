@@ -20,7 +20,7 @@ module.exports = {
           { loader: 'vue-loader' },
           {
             loader: `${__dirname}/../index.js`,
-            options: { separator: ':' },
+            options: { },
           },
         ],
       },
