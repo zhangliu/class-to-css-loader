@@ -114,7 +114,7 @@ const genRules = (unit) => {
     { key: 'ol', valReg: /^n$/, css: 'outline:none' },
 
     // transform
-    { key: 't', valReg: /^r(\d+)$/, css: 'transform:rotate($1deg)' },
+    { key: 't', valReg: /^r(\d+)$/, css: (key, value) => `transform: rotate(${value.substr(1)}deg)` },
 
     // 透明
     { key: 'o', valReg: numberReg, css: 'opacity:$1' },
