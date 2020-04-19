@@ -1,6 +1,3 @@
-
-const { getKeyReg } = require('./rules');
-
 const UNIT_HOLDER = '_unit_';
 
 const genCss = (ctcInfo) => {
@@ -32,10 +29,7 @@ const genCssValueFromCtcInfo = ctcInfo => {
 
 const getCssValue = (key, value, rule) => {
   if (isFunc(rule.css)) return rule.css(key, value);
-  if (value) return value.replace(/^(.*?)$/g, rule.css);
-
-  const reg = getKeyReg(rule);
-  return key.replace(reg, rule.css);
+  return value.replace(/^(.*?)$/g, rule.css);
 }
 
 const handleImportant = (cssValue, hasImportant) => {

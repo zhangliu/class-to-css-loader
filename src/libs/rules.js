@@ -122,13 +122,6 @@ const genRules = (unit) => {
   ]
 }
 
-const getKeyReg = (rule) => {
-  const { key, valReg } = rule;
-  const source = valReg.source.replace(/\^?(.*?)\$?/g, '$1');
-  return new RegExp(`^${key}${source}$`);
-}
-
 module.exports = {
   genRules,
-  getKeyReg
 }

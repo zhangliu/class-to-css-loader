@@ -1,5 +1,3 @@
-const { getKeyReg } = require('./rules');
-
 const MERGE_REGS = {
   brReg: /^b(tl|tr|bl|br)?r((\d+)|(\.\d+)|(\d+\.\d+))$/, // border-radius
   bwReg: /^b[trbl]?w((\d+)|(\.\d+)|(\d+\.\d+))$/, // border-width
