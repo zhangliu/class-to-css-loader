@@ -43,10 +43,7 @@ module.exports = {
           {
             loader: '@byted/class-to-css-loader',
             options: {
-              unit: 'px', // 使用的单位，默认 px，也可以设置成 rem
-              tests: [
-                /src\/.*$/, // 表示只转换 src 目录下的文件
-              ],
+              unit: 'px', // 使用的单位，rem 或 px, 默认 px。
             }
           }
         ],
