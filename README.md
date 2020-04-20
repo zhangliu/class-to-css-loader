@@ -1,6 +1,6 @@
 ### class-to-css-loader
 该loader基于css的简化命名法：
-![](https://upload-images.jianshu.io/upload_images/4328038-5c8f39b0e5936258.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](https://bytedance.feishu.cn/space/api/box/stream/download/all/boxcn9IoK29wB4QfalODWoP7GOh/?mount_node_token=doccnDOSaAI6Ai5PPprlUjEXWPg&mount_point=doc_image)
 
 当你在 vue/react 文件中写有`<div class="ml:10 fs:12 p:a" />hello<div>`时，这个div将自动获得：
 ```css
@@ -55,71 +55,15 @@ module.exports = {
 
 ### 解析对照表
 
-| key | 代表css属性 | value | 例子 |
-| - | - | - | - |
-| d | display | `dn` => `display: none` | |
-| fd | flex-direction |  | |
-| ai | align-items |  | |
-| jc | justify-content |  | |
-| as | align-self |  | |
-| m | margin |  | |
-| mt | margin-top |  | |
-| mb | margin-bottom |  | |
-| ml | margin-left |  | |
-| mr | margin-right |  | |
-| p | padding |  | |
-| pt | padding-top |  | |
-| pb | padding-bottom |  | |
-| pl | padding-left |  | |
-| pr | padding-right |  | |
-| f | float |  | |
-| of | overflow |  | |
-| of | overflow |  | |
-| c | clear |  | |
-| ofy | overflow-y |  | |
-| ta | text-align |  | |
-| td | text-decoration |  | |
-| va | vertical-align |  | |
-| bg | background |  | |
-| bgc | background-color |  | |
-| bgi | background-image |  | |
-| bgs | background-size |  | |
-| bgs | background-size |  | |
-| lh | line-height |  | |
-| fw | font-weight |  | |
-| fs | font-size |  | |
-| c | color |  | |
-| td | text-decoration |  | |
-| tof | text-overflow |  | |
-| ws | white-space |  | |
-| ls | letter-spacing |  | |
-| ww | word-wrap |  | |
-| wb | word-break |  | |
-| p | position |  | |
-| t | top |  | |
-| b | bottom |  | |
-| l | left |  | |
-| r | right |  | |
-| w | width |  | |
-| miw | min-width |  | |
-| maw | max-width |  | |
-| h | height |  | |
-| mih | min-height |  | |
-| mah | max-height |  | |
-| bw | border-width |  | |
-| bbw | border-bottom-width |  | |
-| blw | border-left-width |  | |
-| brw | border-right-width |  | |
-| btw | border-top-width |  | |
-| bs | border-style |  | |
-| bc | border-color |  | |
-| br | border-radius |  | |
-| btlr | border-top-left-radius |  | |
-| btrr | border-top-right-radius |  | |
-| bbrr | border-bottom-right-radius |  | |
-| bblr | border-bottom-left-radius |  | |
-| bs | box-sizing |  | |
-| ol | outline |  | |
-| t | transform |  | |
-| o | opacity |  | |
-| zi | z-index |  | |
+|  css属性  |  简写key  |  例子  |
+|  -  |  -  |  -  |
+|  display  |  d  |  `d:n` => `display: none`  |
+|  margin  |  m  |  `m:10` => `margin: 10px`  |
+|  margin-top  |  mt  |  `mt:-10` => `margin-top: -10px`  |
+|  padding  |  p  |  `p:2` => `padding: 2px`  |
+|  padding-bottom  |  pb  |  `pb:5` => `padding-bottom: 5px`  |
+|  float  |  f  |  `f:l` => `float: left`  |
+|  overflow  |  of  |  `of:a` => `overflow: auto`  |
+|  z-index  |  zi  |  `zi:10` => `z-index: 10`  |
+|  border-color  |  bc  |  `bc:333` => `border-color: #333`  |
+|  ...  |  ...  |  ...  |
