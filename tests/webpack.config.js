@@ -20,7 +20,11 @@ module.exports = {
           { loader: 'vue-loader' },
           {
             loader: `${__dirname}/../index.js`,
-            options: { },
+            options: { 
+              rules: [
+                // { key: 'center', valReg: /h/, css: () => 'display: flex; align-items: center;' },
+              ]
+            },
           },
         ],
       },

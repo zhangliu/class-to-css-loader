@@ -85,8 +85,7 @@ const handleAttrs = (node, opts) => {
 const handleNames = (names, opts = {}) => {
   const csses = [];
   const defaultRules = genRules(cssHandler.UNIT_HOLDER)
-  const outerRules = (opts.rules || []).map(r => ({reg: new RegExp(r.reg), to: r.to}))
-  rules = rules || outerRules.concat(defaultRules);
+  const rules = (opts.rules || []).concat(defaultRules);
 
   const newNames = []
   let ctcInfos = nameHandler.parse(names, rules, opts);
