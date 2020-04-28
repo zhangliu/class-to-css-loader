@@ -1,7 +1,10 @@
 const loaderUtils = require('loader-utils');
 const path = require('path');
+const fs = require('fs');
 const reactConverter = require('./src/convers/reactConverter');
 const vueConverter = require('./src/convers/vueConverter');
+
+const cache = {}
 
 module.exports = function(source) {
   const options = loaderUtils.getOptions(this) || {};
@@ -9,13 +12,19 @@ module.exports = function(source) {
   const isMatch = regs.find(reg => reg.test(this.resourcePath));
   if (!isMatch) return source;
 
+  const mTime = fs.statSync(this.resourcePath).mtime;
+  const cacheKey = `${this.resourcePath}@${mTime}`;
+  if (cache[cacheKey]) return cache[cacheKey];
+
   log(this.resourcePath);
   const extname = path.extname(this.resourcePath).toLowerCase();
   const type = getType(options.type, extname);
   const converter = type === 'vue' ? vueConverter : reactConverter;
-  const result = converter.handle(source, options);
-  // console.log(result, 'xxxxxxxxxxxxxxxxxxxxxxxx');
-  return result;
+  cache[cacheKey] = converter.handle(source, options);
+
+  console.log(cache[cacheKey]);
+
+  return cache[cacheKey];
 }
 
 const log = (resourcePath) => {
