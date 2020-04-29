@@ -1,6 +1,6 @@
 ### class-to-css-loader
 该loader基于css的简化命名法：
-![](https://bytedance.feishu.cn/space/api/box/stream/download/all/boxcn9IoK29wB4QfalODWoP7GOh/?mount_node_token=doccnDOSaAI6Ai5PPprlUjEXWPg&mount_point=doc_image)
+![](https://internal-api-space-lf.feishu.cn/space/api/box/stream/download/preview/boxcnrd3dipAAW8PlcLyCCzfs7c?preview_type=16&version=6821094140655173635)
 
 当你在 vue/react 文件中写有`<div class="ml:10 fs:12 p:a" />hello<div>`时，这个div将自动获得：
 ```css
