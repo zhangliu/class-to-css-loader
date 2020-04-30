@@ -1,95 +1,53 @@
-const cheerio = require('cheerio');
-const compiler = require('vue-template-compiler');
-const { getEleCode } = require('../libs/code');
-const nameHandler = require('../libs/nameHandler')
-const cssHandler = require('../libs/cssHandler')
-const { genRules } = require('../libs/rules')
+const fs = require('fs');
+const { EOL } = require('os');
+const parser = require('@babel/parser');
+const { basename, dirname } = require('path');
+const generate = require('babel-generator').default;
+const traverse = require('babel-traverse').default;
+const { genRules } = require('../libs/rules');
+const nameHandler = require('../libs/nameHandler');
+const cssHandler = require('../libs/cssHandler');
 
-const EMPTY_ATTR = '__EMPTY_ATTR__';
-const emptyAttrReg = new RegExp(`="${EMPTY_ATTR}"`, 'g');
-let rules;
+module.exports.handle = (source, opts, file) => {
+  const ast = parser.parse(source, { allowImportExportEverywhere: true, plugins: ['jsx'] });
+  let allCsses = [];
+  traverse(ast, {
+    JSXAttribute(path) {
+      try {
+        let names = getNames(path.node) || [];
+        if (names.length <= 0) return;
 
-module.exports.handle = (source, opts) => {
-  const res = compiler.parseComponent(source, {pad: 'line'});
-  const html = (res.template || {}).content;
-  const handleRes = handleHtml(html, opts || {});
-  if (!handleRes) return source;
+        const res = handleNames(names, opts);
+        setClass(path.node, res.names);
+        allCsses = allCsses.concat(res.csses || []);
+      } catch(e) {
+        console.error(e)
+      }
+    }
+  });
 
-  res.template = res.template ? { ...res.template, content: handleRes.html } : undefined;
-  const style = {
-    type: 'style',
-    content: [...(new Set(handleRes.csses))].join(''),
-    attrs: { lang: 'css', scoped: true },
-  };
-  res.styles = Array.isArray(res.styles) ? res.styles.concat(style) : [style];
+  const cssFile = genCssFile(allCsses, file);
+  const newSource = generate(ast);
 
-  return `
-    ${getEleCode(res.template)}
-    ${getEleCode(res.script)}
-    ${res.styles.map(getEleCode).join('\n')}
-  `
+  return cssFile
+    ? `import './${cssFile}';${newSource.code}`
+    : newSource.code;
 };
 
-const handleHtml = (html, opts) => {
-  if (!html) return;
+const getNames = (node) => {
+  if (!node.name) return []
+  if (node.name.name !== 'className') return [];
 
-  const $ = cheerio.load(html, {xml: { normalizeWhitespace: false, decodeEntities: false }});
-  const tagNodes = ($.root()[0].children || []).filter(child => child.type === 'tag');
-  if (!tagNodes.length) return;
-
-  let csses = [];
-  tagNodes.forEach(node => csses = csses.concat(handleNode(node, opts)));
-
-  const newHtml = $.root().html().replace(emptyAttrReg, '');
-
-  return { html: newHtml, csses };
-}
-
-const handleNode = (node, opts) => {
-  let csses = [];
-  csses = csses.concat(handleAttrs(node, opts));
-
-  (node.children || []).forEach(child => {
-    // csses = csses.concat(handleAttrs(child, opts));
-    if (child.type !== 'tag') return;
-    csses = csses.concat(handleNode(child, opts));
-  })
-
-  return csses;
-}
-
-const handleAttrs = (node, opts) => {
-  let csses = [];
-  const attrs = node.attribs;
-  if (!attrs) return csses;
-
-  Object.keys(attrs).forEach(key => {
-    if (attrs[key] === "") {
-      attrs[key] = EMPTY_ATTR;
-      return;
-    }
-    if (key.toLowerCase() !== 'class') return;
-
-    const classname = attrs[key] || '';
-    const names = classname.split(' ').filter(s => s.length);
-    if (names.length <= 0) return;
-
-    const res = handleNames(names, opts);
-    attrs[key] = res.names.join(' ');
-    csses = csses.concat(res.csses);
-  })
-
-  return csses;
+  return node.value.value.split(' ').filter(s => s.length);
 }
 
 const handleNames = (names, opts = {}) => {
   const csses = [];
   const defaultRules = genRules(cssHandler.UNIT_HOLDER)
-  const outerRules = (opts.rules || []).map(r => ({reg: new RegExp(r.reg), to: r.to}))
-  rules = rules || outerRules.concat(defaultRules);
+  const rules = (opts.rules || []).concat(defaultRules);
 
   const newNames = []
-  let ctcInfos = nameHandler.parse(names, rules, opts.unit || 'px')
+  let ctcInfos = nameHandler.parse(names, rules, opts);
   ctcInfos = nameHandler.merge(ctcInfos)
 
   for (const ctcInfo of ctcInfos) {
@@ -97,4 +55,20 @@ const handleNames = (names, opts = {}) => {
     csses.push(cssHandler.genCss(ctcInfo))
   }
   return { names: newNames, csses };
+}
+
+const setClass = (node, names) => {
+  const uniqNames = [...(new Set(names || []))];
+  node.value.value = uniqNames.join(' ');
+}
+
+const genCssFile = (csses, file) => {
+  if (csses.length <= 0) return;
+  const index = basename(file).indexOf('.');
+  const cssFile = `${basename(file).substr(0, index)}.ctc.css`;
+  const absoluteCssFile = `${dirname(file)}/${cssFile}`;
+
+  const content = `/* 自动生成的文件，请不要修改 */${EOL}${csses.join(EOL)}`
+  fs.writeFileSync(absoluteCssFile, content);
+  return cssFile;
 }

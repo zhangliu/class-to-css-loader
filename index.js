@@ -20,9 +20,9 @@ module.exports = function(source) {
   const extname = path.extname(this.resourcePath).toLowerCase();
   const type = getType(options.type, extname);
   const converter = type === 'vue' ? vueConverter : reactConverter;
-  cache[cacheKey] = converter.handle(source, options);
+  cache[cacheKey] = converter.handle(source, options, this.resourcePath);
 
-  console.log(cache[cacheKey]);
+  // console.log(cache[cacheKey], 'xxxxxxxxxxxxxxxxxxxxxxxx');
 
   return cache[cacheKey];
 }

@@ -1,9 +1,9 @@
 const cheerio = require('cheerio');
 const compiler = require('vue-template-compiler');
 const { getEleCode } = require('../libs/code');
-const nameHandler = require('../libs/nameHandler')
-const cssHandler = require('../libs/cssHandler')
-const { genRules } = require('../libs/rules')
+const nameHandler = require('../libs/nameHandler');
+const cssHandler = require('../libs/cssHandler');
+const { genRules } = require('../libs/rules');
 
 const EMPTY_ATTR = '__EMPTY_ATTR__';
 const emptyAttrReg = new RegExp(`="${EMPTY_ATTR}"`, 'g');
