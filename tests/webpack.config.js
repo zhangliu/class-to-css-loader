@@ -12,6 +12,7 @@ module.exports = {
     rules: [{
         test: /\.jsx$/,
         use: [
+          { loader: 'babel-loader' },
           {
             loader: `${__dirname}/../index.js`,
             options: { 
