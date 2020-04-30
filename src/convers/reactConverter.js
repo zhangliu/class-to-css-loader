@@ -26,6 +26,7 @@ module.exports.handle = (source, opts, file) => {
     }
   });
 
+  allCsses = [...new Set(allCsses)];
   const cssFile = genCssFile(allCsses, file);
   const newSource = generate(ast);
 
