@@ -9,7 +9,7 @@ const nameHandler = require('../libs/nameHandler');
 const cssHandler = require('../libs/cssHandler');
 
 module.exports.handle = (source, opts, file) => {
-  const ast = parser.parse(source, { allowImportExportEverywhere: true, plugins: ['jsx'] });
+  const ast = parser.parse(source, { allowImportExportEverywhere: true, plugins: ['jsx', 'classProperties', 'decorators-legacy'] });
   let allCsses = [];
   traverse(ast, {
     JSXAttribute(path) {
