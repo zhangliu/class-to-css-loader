@@ -1,6 +1,6 @@
 {
   "name": "@byted/class-to-css-loader",
-  "version": "2.0.16",
+  "version": "2.0.17",
   "description": "",
   "main": "index.js",
   "directories": {
