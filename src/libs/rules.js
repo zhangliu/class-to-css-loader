@@ -119,6 +119,9 @@ const genRules = (unit) => {
     // 透明
     { key: 'o', valReg: numberReg, css: 'opacity:$1' },
     { key: 'zi', valReg: /^\d+$/, css: 'z-index:$1' },
+
+    // 其他
+    { key: 'c', valReg: /^p$/, css: 'cursor: pointer' },
   ]
 }
 
