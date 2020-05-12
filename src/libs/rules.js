@@ -6,10 +6,10 @@ const colorReg = /^(([0-9a-fA-F]{3})|([0-9a-fA-F]{6}))$/;
 const genRules = (unit) => {
   return [
     // display
-    { key: 'd', valReg: /b/, css: 'display:block' },
-    { key: 'd', valReg: /ib/, css: 'display:inline-block' },
-    { key: 'd', valReg: /n/, css: 'display:none' },
-    { key: 'd', valReg: /f/, css: 'display:flex' },
+    { key: 'd', valReg: /^b$/, css: 'display:block' },
+    { key: 'd', valReg: /^ib$/, css: 'display:inline-block' },
+    { key: 'd', valReg: /^n$/, css: 'display:none' },
+    { key: 'd', valReg: /^f$/, css: 'display:flex' },
     { key: 'd', valReg: /^if$/, css: 'display:inline-flex' },
 
     // flex
