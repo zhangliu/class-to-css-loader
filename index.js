@@ -30,7 +30,7 @@ module.exports = function(source) {
 const log = (resourcePath) => {
   const file = path.basename(resourcePath);
   const dirname = path.basename(path.dirname(resourcePath));
-  console.log(`\nwill gen css for file: ${dirname}/${file}`);
+  console.log(`will gen css for file: ${dirname}/${file}`);
 }
 
 const getType = (type, extname) => {
