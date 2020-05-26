@@ -38,6 +38,8 @@ module.exports.handle = (source, opts, file) => {
 const getNames = (node) => {
   if (!node.name) return []
   if (node.name.name !== 'className') return [];
+  if (!node.value) return;
+  if (node.value.type !== 'StringLiteral') return;
 
   return node.value.value.split(' ').filter(s => s.length);
 }
