@@ -122,7 +122,6 @@ const genRules = (unit) => {
 
     // 其他
     { key: 'c', valReg: /^p$/, css: 'cursor: pointer' },
-    { key: 'wb', valReg: /^ba$/, css: 'cursor: pointer' },
   ]
 }
 
