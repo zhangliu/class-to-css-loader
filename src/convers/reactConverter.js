@@ -7,6 +7,7 @@ const traverse = require('babel-traverse').default;
 const { genRules } = require('../libs/rules');
 const nameHandler = require('../libs/nameHandler');
 const cssHandler = require('../libs/cssHandler');
+const { getRaws, setQuasis } = require('../libs/tLiteral');
 
 module.exports.handle = (source, opts, file) => {
   const ast = parser.parse(source, { allowImportExportEverywhere: true, plugins: ['jsx', 'classProperties', 'decorators-legacy'] });
@@ -39,9 +40,11 @@ const getNames = (node) => {
   if (!node.name) return []
   if (node.name.name !== 'className') return [];
   if (!node.value) return;
-  if (node.value.type !== 'StringLiteral') return;
 
-  return node.value.value.split(' ').filter(s => s.length);
+  if (node.value.type === 'StringLiteral') return node.value.value.split(' ').filter(s => s.length);
+
+  const raws = getRaws(node.value.expression);
+  return raws.join(' ').split(' ').filter(s => s.length);
 }
 
 const handleNames = (names, opts = {}) => {
@@ -62,7 +65,12 @@ const handleNames = (names, opts = {}) => {
 
 const setClass = (node, names) => {
   const uniqNames = [...(new Set(names || []))];
-  node.value.value = uniqNames.join(' ');
+  if (node.value.type === 'StringLiteral') {
+    node.value.value = uniqNames.join(' ');
+    return;
+  }
+
+  setQuasis(node.value.expression, uniqNames.join(' '));
 }
 
 const genCssFile = (csses, file) => {

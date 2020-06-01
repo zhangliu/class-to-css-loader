@@ -22,7 +22,7 @@ module.exports = function(source) {
   const converter = type === 'vue' ? vueConverter : reactConverter;
   cache[cacheKey] = converter.handle(source, options, this.resourcePath);
 
-  // console.log(cache[cacheKey], 'xxxxxxxxxxxxxxxxxxxxxxxx');
+  console.log(cache[cacheKey], 'xxxxxxxxxxxxxxxxxxxxxxxx');
 
   return cache[cacheKey];
 }
