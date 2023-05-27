@@ -1,6 +1,6 @@
 {
   "name": "@zhangliuge/class-to-css-loader",
-  "version": "3.1.30",
+  "version": "4.0.0",
   "description": "",
   "main": "index.js",
   "directories": {
