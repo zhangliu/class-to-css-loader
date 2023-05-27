@@ -1,5 +1,5 @@
 {
-  "name": "@zhangliuge/class-to-css-loader",
+  "name": "class-to-css-loader",
   "version": "4.0.1",
   "description": "",
   "main": "index.js",
