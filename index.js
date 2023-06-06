@@ -37,6 +37,6 @@ const getType = (type, extname) => {
   if (type) return type.toLowerCase();
 
   if (['.vue'].includes(extname.toLowerCase())) return 'vue';
-  if (['.jsx'].includes(extname.toLowerCase())) return 'react';
+  if (/\.(js|ts)x$/i.test(extname)) return 'react';
   return 'vue';
 }

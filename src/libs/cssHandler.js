@@ -29,7 +29,7 @@ const genCssValueFromCtcInfo = ctcInfo => {
 
 const getCssValue = (key, value, rule) => {
   if (isFunc(rule.css)) return rule.css(key, value);
-  return value.replace(/^(.*?)$/g, rule.css);
+  return value.replace(rule.valReg, rule.css);
 }
 
 const handleImportant = (cssValue, hasImportant) => {

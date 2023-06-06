@@ -3,14 +3,14 @@ const { EOL } = require('os');
 const parser = require('@babel/parser');
 const { basename, dirname } = require('path');
 const generate = require('@babel/generator').default;
-const traverse = require('babel-traverse').default;
+const traverse = require('@babel/traverse').default;
 const { genRules } = require('../libs/rules');
 const nameHandler = require('../libs/nameHandler');
 const cssHandler = require('../libs/cssHandler');
 const { getRaws, setQuasis } = require('../libs/tLiteral');
 
 module.exports.handle = (source, opts, file) => {
-  const ast = parser.parse(source, { allowImportExportEverywhere: true, plugins: ['jsx', 'classProperties', 'decorators-legacy'] });
+  const ast = parser.parse(source, { allowImportExportEverywhere: true, plugins: ['jsx', 'typescript', 'classProperties', 'decorators-legacy'] });
   let allCsses = [];
   traverse(ast, {
     JSXAttribute(path) {
