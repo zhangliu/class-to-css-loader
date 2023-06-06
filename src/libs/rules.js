@@ -1,6 +1,6 @@
 const backgroundImg = require('../ruleFuncs/backgroundImg')
 
-const numberReg = /^-?((\d+)|(\.\d+)|(\d+\.\d+))$/;
+const numberReg = /^((-?\d+)|(-?\.\d+)|(-?\d+\.\d+))$/;
 const colorReg = /^(([0-9a-fA-F]{3})|([0-9a-fA-F]{6}))$/;
 
 const genRules = (unit) => {
