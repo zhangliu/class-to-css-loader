@@ -2,6 +2,7 @@ const backgroundImg = require('../ruleFuncs/backgroundImg')
 
 const numberReg = /^((-?\d+)|(-?\.\d+)|(-?\d+\.\d+))$/;
 const colorReg = /^(([0-9a-fA-F]{3})|([0-9a-fA-F]{6}))$/;
+const rgbaReg = /^r(\d+)-(\d+)-(\d+)-(\d|0?\.\d+)$/;
 
 const genRules = (unit) => {
   return [
@@ -16,6 +17,7 @@ const genRules = (unit) => {
     { key: 'f', valReg: /^n$/, css: 'flex:none' },
     { key: 'fd', valReg: /c/, css: 'flex-direction:column' },
     { key: 'fw', valReg: /^w$/, css: 'flex-wrap:wrap' },
+    { key: 'fg', valReg: /^(\d)+$/, css: 'flex-grow:$1' },
     { key: 'ai', valReg: /^c$/, css: 'align-items:center' },
     { key: 'jc', valReg: /^c$/, css: 'justify-content:center' },
     { key: 'jc', valReg: /^sb$/, css: 'justify-content:space-between' },
@@ -39,6 +41,7 @@ const genRules = (unit) => {
     { key: 'pb', valReg: numberReg, css: 'padding-bottom:$1' + unit },
     { key: 'pl', valReg: numberReg, css: 'padding-left:$1' + unit },
     { key: 'pr', valReg: numberReg, css: 'padding-right:$1' + unit },
+    { key: 'pi', valReg: numberReg, css: 'padding-inline:$1' + unit },
 
     { key: 'pr', valReg: /^a$/, css: 'padding-right:auto' },
     { key: 'pl', valReg: /^a$/, css: 'padding-left:auto' },
@@ -62,6 +65,7 @@ const genRules = (unit) => {
     { key: 'bg', valReg: /^n$/, css: 'background:none' },
     { key: 'bgi', valReg: /^([_0-9a-zA-Z]+)(-([0-9a-zA-Z]+))?$/, css: backgroundImg },
     { key: 'bgc', valReg: colorReg, css: 'background-color:#$1' },
+    { key: 'bgc', valReg: rgbaReg, css: 'background-color: rgba($1, $2, $3, $4)' },
     { key: 'bgi', valReg: /^lg-(\d+)-(\w{3,8})-(\w{3,8})$/, css: 'background-image:linear-gradient($1deg, #$2, #$3)'},
     { key: 'bgs', valReg: /^con$/, css: 'background-size: contain'},
     { key: 'bgs', valReg: /^cov$/, css: 'background-size: cover'},
@@ -74,6 +78,7 @@ const genRules = (unit) => {
     { key: 'fs', valReg: /^i$/, css: 'font-style:italic' },
     { key: 'fs', valReg: numberReg, css: 'font-size:$1' + unit },
     { key: 'c', valReg: colorReg, css: 'color:#$1' },
+    { key: 'c', valReg: rgbaReg, css: 'color: rgba($1, $2, $3, $4)' },
     { key: 'td', valReg: /^n$/, css: 'text-decoration:none' },
     { key: 'td', valReg: /^u$/, css: 'text-decoration:underline' },
     { key: 'tof', valReg: /^e$/, css: 'text-overflow:ellipsis' },
@@ -112,6 +117,7 @@ const genRules = (unit) => {
     { key: 'bs', valReg: /^s$/, css: 'border-style:solid' },
     { key: 'bs', valReg: /^d$/, css: 'border-style:dashed' },
     { key: 'bc', valReg: colorReg, css: 'border-color:#$1' },
+    { key: 'bc', valReg: rgbaReg, css: 'border-color: rgba($1, $2, $3, $4)' },
     { key: 'br', valReg: numberReg, css: 'border-radius:$1' + unit },
     { key: 'btlr', valReg: numberReg, css: 'border-top-left-radius:$1' + unit },
     { key: 'btrr', valReg: numberReg, css: 'border-top-right-radius:$1' + unit },
