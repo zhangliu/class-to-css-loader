@@ -53,6 +53,9 @@ const genRules = (unit) => {
     { key: 'of', valReg: /^a$/, css: 'overflow:auto' },
     { key: 'c', valReg: /^b$/, css: 'clear:both' },
     { key: 'ofy', valReg: /^s$/, css: 'overflow-y: scroll' },
+    { key: 'ofy', valReg: /^h$/, css: 'overflow-y: hidden' },
+    { key: 'ofx', valReg: /^s$/, css: 'overflow-x: scroll' },
+    { key: 'ofx', valReg: /^h$/, css: 'overflow-x: hidden' },
 
     // align
     { key: 'ta', valReg: /^l$/, css: 'text-align:left' },
@@ -136,6 +139,7 @@ const genRules = (unit) => {
 
     // 鼠标
     { key: 'c', valReg: /^p$/, css: 'cursor: pointer' },
+    { key: 'pe', valReg: /^n$/, css: 'pointer-events: none' },
     { key: 'c', valReg: /^m$/, css: 'cursor: move' },
 
     // 其他
