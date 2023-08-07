@@ -124,5 +124,6 @@ const mergeToOne = ctcInfos => {
 
 module.exports = {
   parse,
-  merge
+  merge,
+  SEPARATOR
 }

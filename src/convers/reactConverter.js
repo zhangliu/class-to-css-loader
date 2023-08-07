@@ -41,10 +41,15 @@ const getNames = (node) => {
   if (node.name.name !== 'className') return [];
   if (!node.value) return;
 
-  if (node.value.type === 'StringLiteral') return node.value.value.split(' ').filter(s => s.length);
+  const isStringLiteral = node.value.type === 'StringLiteral';
+  let names = null;
+  if (isStringLiteral) names = node.value.value.split(' ').filter(s => s.length);
+  else {
+    const raws = getRaws(node.value.expression);
+    names = raws.join(' ').split(' ').filter(s => s.length);
+  }
 
-  const raws = getRaws(node.value.expression);
-  return raws.join(' ').split(' ').filter(s => s.length);
+  return names.filter(s => s.includes(nameHandler.SEPARATOR));
 }
 
 const handleNames = (names, opts = {}) => {
