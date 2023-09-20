@@ -49,7 +49,7 @@ const getNames = (node) => {
     names = raws.join(' ').split(' ').filter(s => s.length);
   }
 
-  return names.filter(s => s.includes(nameHandler.SEPARATOR));
+  return names.filter(name => !!name.trim());
 }
 
 const handleNames = (names, opts = {}) => {
@@ -62,8 +62,9 @@ const handleNames = (names, opts = {}) => {
   ctcInfos = nameHandler.merge(ctcInfos)
 
   for (const ctcInfo of ctcInfos) {
-    newNames.push(ctcInfo.name)
-    csses.push(cssHandler.genCss(ctcInfo))
+    newNames.push(ctcInfo.name);
+    const css = cssHandler.genCss(ctcInfo);
+    if (css) csses.push(css)
   }
   return { names: newNames, csses };
 }
