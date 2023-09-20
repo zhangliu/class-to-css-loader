@@ -16,7 +16,7 @@ module.exports = function(source) {
   const cacheKey = `${this.resourcePath}@${mTime}`;
   if (cache[cacheKey]) return cache[cacheKey];
 
-  log(this.resourcePath);
+  // log(this.resourcePath);
   const extname = path.extname(this.resourcePath).toLowerCase();
   const type = getType(options.type, extname);
   const converter = type === 'vue' ? vueConverter : reactConverter;

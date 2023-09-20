@@ -85,6 +85,7 @@ const genCssFile = (csses, file) => {
   const cssFile = `${basename(file).substr(0, index)}.ctc.css`;
   const absoluteCssFile = `${dirname(file)}/${cssFile}`;
 
+  console.log(`will gen css for file: ${file.replace(/.*\/(.*?)\/(.*?)$/, '$1/$2')}`);
   const content = `/* 自动生成的文件，请不要修改 */${EOL}${csses.join(EOL)}`
   fs.writeFileSync(absoluteCssFile, content);
   return cssFile;
