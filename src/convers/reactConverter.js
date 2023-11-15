@@ -48,7 +48,7 @@ const getNames = (node) => {
     const raws = getRaws(node.value.expression);
     names = raws.join(' ').split(' ').filter(s => s.length);
   }
-
+  if (!names.find(name => name.includes(nameHandler.SEPARATOR))) return [];
   return names.filter(name => !!name.trim());
 }
 
